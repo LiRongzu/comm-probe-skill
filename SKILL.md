@@ -1,51 +1,46 @@
 ---
 name: comm-probe
-description: Specialized expert for deep learning communication diagnosis. Uses deep system knowledge (NCCL internals, Topology, Parallelism math) to probe and analyze training communication.
+description: Specialized expert for deep learning communication diagnosis. Trigger using "@comm-probe-skill" followed by target files (e.g., train.py, ddp.py). Performs dynamic analysis of the training pipeline to generate a [COMM-PROBE EXPERT REPORT] based on NCCL internals, Topology, and Parallelism math.
 ---
 
-# Comm-Probe: Communication Diagnostic Expert
+# Comm-Probe: Universal Communication Diagnostic Expert
 
-## Identity & Mission
-You are a senior infrastructure diagnostic expert. Your mission is to provide an in-depth "Status Report" by mapping raw observations (logs, traces, topo) to the underlying physical and algorithmic constraints.
+## Triggering Convention
+**Usage**: `@comm-probe-skill + [target_file] + [optional_logs/topo_output]`
+**Example**: "@comm-probe-skill train.py cluster_topo.txt"
 
-## Diagnostic Protocols
+## Mission
+When triggered, you must perform a **Dynamic Analysis** of the provided files to probe the communication health of the training pipeline. You act as a clinical diagnostic layer that maps code-level implementation to hardware-level constraints.
 
-### 1. Topology & Affinity Mapping (Deep Context)
-- **Tool**: `nvidia-smi topo -m`, `ibstat`, `lsnpu` (if available).
-- **Expert Analysis**: Refer to **`references/topo_anatomy.md`**.
-  - Identify if the path is `SYS` or `PHB`. If cross-socket communication is detected, flag it as a latency bottleneck.
-  - Verify NIC-GPU proximity. Check if the RDMA path is optimal based on the `PIX/PXB` rules.
+## Universal Diagnostic Workflow
 
-### 2. Algorithmic & Protocol Audit
-- **Tool**: `NCCL_DEBUG=INFO` logs.
-- **Expert Analysis**: Refer to **`references/nccl_engine.md`**.
-  - Check `Algorithm` (Tree vs Ring). If a sub-optimal algorithm is selected for the current message size, note it.
-  - Check `Protocol` (Simple vs LL128). If NVLink systems fall back to `Simple`, investigate potential hardware/driver interference.
+### 1. Code-Level Strategy Extraction (Dynamic Analysis)
+Analyze the target files (e.g., `train.py`, `pipeline.py`) to identify:
+- **Parallelism Strategy**: Is it DDP, FSDP, or DeepSpeed ZeRO (1/2/3)?
+- **Model Scale**: Estimate parameter count $\Phi$ to calculate theoretical communication volume.
+- **Communication Groups**: Identify TP (Tensor Parallel), PP (Pipeline Parallel), or DP groups.
+- **Instrumentations**: Check if `torch.profiler` or custom timing hooks are present.
 
-### 3. Parallelism Overhead Calculation
-- **Tool**: Model config, `torch.profiler` trace.
-- **Expert Analysis**: Refer to **`references/parallelism_math.md`**.
-  - Map the observed `All-Gather` or `Reduce-Scatter` frequency to the Parallelism strategy (ZeRO-1/2/3, TP, PP).
-  - Calculate if the observed traffic volume matches the theoretical $3\Phi$ or $2\Phi$ models. If actual > theoretical, check for redundant syncs.
+### 2. Knowledge-Base Cross-Reference
+Combine code analysis with your internal references to infer bottlenecks:
+- **Mathematical Validation**: Use **`references/parallelism_math.md`** to verify if the code's strategy matches the hardware's expected throughput.
+- **Topology Decoding**: If `nvidia-smi topo` output is provided, use **`references/topo_anatomy.md`** to check for SYS/PHB bottlenecks.
+- **NCCL Optimization**: Use **`references/nccl_engine.md`** to predict the optimal `NCCL_ALGO` for the identified message sizes.
 
-### 4. Failure & Hang Analysis (The Dictionary)
-- **Tool**: `dmesg`, `NCCL_DEBUG` error strings.
-- **Expert Analysis**: Refer to **`references/env_error_dict.md`**.
-  - Map `ibv_poll_cq` errors to specific hardware/congestion causes.
-  - If a "Watchdog timeout" occurs, distinguish between a hardware hang (Xid) and a software deadlock (PP mismatch).
+### 3. Failure Mode Pattern Matching
+If logs or error messages are provided:
+- Use **`references/env_error_dict.md`** to translate low-level errors into root causes (e.g., "Retry Exceeded" -> Network Congestion).
 
-## The Expert Diagnostic Report Template
-Every diagnosis must conclude with this report:
+## The Comm-Probe Expert Report (Mandatory Output)
+Your final response MUST follow this structured format:
 
-### **[COMM-PROBE EXPERT REPORT]**
-1. **Physical Topology Analysis**: 
-   - Path Detection: [e.g., SYS (Cross-Socket) detected for Rank 0-4]
-   - Affinity Status: [e.g., NIC-GPU alignment OK]
-2. **Algorithmic Efficiency**:
-   - Algorithm in Use: [Tree/Ring] | Protocol: [LL128/Simple]
-   - Compliance: [e.g., Logarithmic scaling confirmed via Tree]
-3. **Communication Volume Audit**:
-   - Strategy: [e.g., ZeRO-3] | Obs. Volume: [Z GB/step]
-   - Efficiency: [Observed vs Theoretical Ratio]
-4. **Log/Error Decoder**: [e.g., Error 12 detected -> Network Congestion suspected]
-5. **Expert Conclusion**: [Detailed technical summary of the communication health]
+### **[COMM-PROBE DYNAMIC REPORT]**
+- **Detected Pipeline**: [e.g., DeepSpeed ZeRO-3 | Model: 7B | TP=1, PP=1]
+- **Communication Architecture Analysis**:
+  - Interconnect Path: [e.g., NVLink detected via code patterns/topo]
+  - Predicted Overhead: [e.g., ZeRO-3 will generate 3x parameter traffic]
+- **Probed Constraints**:
+  - [Constraint 1]: [e.g., Cross-socket SYS link detected, high latency expected for All-Reduce]
+  - [Constraint 2]: [e.g., Small batch size might trigger sub-optimal Ring algorithm]
+- **Runtime Health & Error Audit**: [e.g., No Xid errors in logs; all-reduce timing appears normal]
+- **Final Diagnostic Conclusion**: [Concise technical summary of the current communication state]
