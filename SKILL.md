@@ -18,14 +18,17 @@ When triggered, you must perform a **Dynamic Analysis** of the provided files to
 Analyze the target files (e.g., `train.py`, `pipeline.py`) to identify:
 - **Parallelism Strategy**: Is it DDP, FSDP, or DeepSpeed ZeRO (1/2/3)?
 - **Model Scale**: Estimate parameter count $\Phi$ to calculate theoretical communication volume.
-- **Communication Groups**: Identify TP (Tensor Parallel), PP (Pipeline Parallel), or DP groups.
-- **Instrumentations**: Check if `torch.profiler` or custom timing hooks are present.
+- **Framework & Backend**: Detecting PyTorch (NCCL) vs MindSpore/PyTorch-Ascend (HCCL).
 
 ### 2. Knowledge-Base Cross-Reference
 Combine code analysis with your internal references to infer bottlenecks:
-- **Mathematical Validation**: Use **`references/parallelism_math.md`** to verify if the code's strategy matches the hardware's expected throughput.
-- **Topology Decoding**: If `nvidia-smi topo` output is provided, use **`references/topo_anatomy.md`** to check for SYS/PHB bottlenecks.
-- **NCCL Optimization**: Use **`references/nccl_engine.md`** to predict the optimal `NCCL_ALGO` for the identified message sizes.
+- **Mathematical Validation**: Use **`references/parallelism_math.md`**.
+- **Topology Decoding**: 
+  - For NVIDIA: Use **`references/topo_anatomy.md`**.
+  - For Huawei Ascend: Use **`references/huawei_ascend_diagnostics.md`**.
+- **Collective Logic**: 
+  - For NVIDIA: Use **`references/nccl_engine.md`**.
+  - For Huawei: Check HCCL specific variables like `HCCL_BUFFSIZE`.
 
 ### 3. Failure Mode Pattern Matching
 If logs or error messages are provided:
