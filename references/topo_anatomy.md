@@ -16,3 +16,8 @@ For RDMA (InfiniBand/RoCE) to reach peak speed, the NIC must be on the same NUMA
 
 - **Knowledge Point**: `NCCL_NET_GDR_LEVEL=PHB` allows GPUDirect RDMA across the host bridge.
 - **Agent Tip**: If `BusBW` is low in multi-node, compare `ibstat` local NIC to `nvidia-smi topo -m`. If GPU is on Socket 0 and NIC is on Socket 1, NCCL will traverse `SYS` unless `NCCL_TOPO_FILE` or `NCCL_CROSS_NIC=1` is configured.
+
+## Citations & References
+- [1] NVIDIA Management Library (NVML): [Topology Queries](https://docs.nvidia.com/deploy/nvml-api/group__nvmlTopologyQueries.html)
+- [2] NVIDIA Support: [Helpful nvidia-smi Queries](https://developer.nvidia.com/nvidia-system-management-interface)
+- [3] Mellanox/NVIDIA Networking: [Best Practices for GPUDirect RDMA](https://docs.nvidia.com/networking/display/winof2v230/gpudirect+rdma)

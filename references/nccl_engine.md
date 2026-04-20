@@ -11,6 +11,11 @@ NCCL chooses between Ring and Tree based on a dynamic cost model.
 - **Agent Tip**: If logs show `NCCL_ALGO=Ring` for small messages and high latency, suggest `NCCL_ALGO=Tree`.
 - **Key Toggle**: `NCCL_ALGO=Tree` forces logarithmic scaling.
 
+## Citations & References
+- [1] NVIDIA NCCL Documentation: [Collective Operations - Cost Model](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/overview.html)
+- [2] NCCL GitHub Wiki: [Protocols (LL, LL128, Simple)](https://github.com/NVIDIA/nccl/wiki/Protocols)
+- [3] NVIDIA Developer Blog: [Optimizing Multi-GPU Communication with NCCL](https://developer.nvidia.com/blog/optimizing-multi-gpu-communication-with-nccl/)
+
 ## 2. Protocols (Data Movement)
 Protocols handle the synchronization between GPU threads during data transfer.
 

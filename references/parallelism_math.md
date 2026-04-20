@@ -17,3 +17,8 @@ Volume of data moved per training step (where $\Phi$ is Model Params):
 - **Data Parallel (DP)**: All-Reduce or Reduce-Scatter. Sensitive to cluster-wide bandwidth.
 
 - **Knowledge Point**: PP Deadlocks usually happen because of `Send`/`Recv` mismatch in the pipeline schedule, not hardware failure.
+
+## Citations & References
+- [1] Rajbhandari et al. (2019): [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054)
+- [2] PyTorch Documentation: [Fully Sharded Data Parallel (FSDP) Tutorial](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html)
+- [3] Microsoft DeepSpeed Blog: [ZeRO & ZeRO-Offload](https://www.deepspeed.ai/tutorials/zero/)

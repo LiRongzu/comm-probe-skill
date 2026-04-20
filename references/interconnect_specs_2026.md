@@ -18,3 +18,8 @@ Theoretical peak bandwidths for diagnostic comparison.
   - NVLink: > 80% Efficiency
   - IB/RoCE: > 85% Efficiency
   - Ethernet (TCP): ~40-60% Efficiency
+
+## Citations & References
+- [1] NVIDIA Blackwell Architecture Whitepaper: [B200 NVLink 5.0 Specifications](https://www.nvidia.com/en-us/data-center/blackwell-architecture/)
+- [2] NVIDIA H100 Tensor Core GPU Architecture: [NVLink 4.0 Detailed Specs](https://resources.nvidia.com/en-us-tensor-core)
+- [3] NVIDIA Hopper Architecture In-Depth: [NVLink and NVSwitch](https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/)

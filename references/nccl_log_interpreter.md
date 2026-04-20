@@ -24,3 +24,7 @@ Use this guide to decode `NCCL_DEBUG=INFO` output during the initialization and 
 - **`NCCL INFO Channel 00 : ... [send] via NET/IB/0`**:
   - **Meaning**: Verifies the specific network rail being used.
   - **Diagnostic**: If only one rail is active on a multi-rail system (e.g., A100-80GB), check `NCCL_IB_HCA`.
+
+## Citations & References
+- [1] NVIDIA NCCL User Guide: [Troubleshooting - NCCL_DEBUG](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting.html#logging)
+- [2] AWS HPC Blog: [Debugging NCCL Performance on EC2](https://aws.amazon.com/blogs/hpc/debugging-nccl-performance-on-aws/)
