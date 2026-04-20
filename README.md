@@ -26,10 +26,12 @@ To trigger a diagnostic probe, use the following convention:
 ## 📊 What the Skill Probes
 When invoked, the agent executes a diagnostic protocol to generate a **[COMM-PROBE DYNAMIC REPORT]**:
 1. **Pipeline Extraction**: Identifies ZeRO stage, TP/PP/DP degrees, and model scale.
-2. **Topology Mapping**: Decodes `nvidia-smi topo` paths (NVLink, PIX, PXB, PHB, SYS) to detect latency bottlenecks.
-3. **Algorithmic Audit**: Predicts optimal NCCL Algorithms (Tree vs Ring) and Protocols (LL128/Simple) for your message sizes.
+2. **Platform-Specific Probing**: 
+   - **NVIDIA**: NCCL Algorithms (Tree/Ring) and Protocols (LL128/Simple).
+   - **Huawei Ascend**: HCCL environment and HCCS topology health.
+3. **Topology Mapping**: Decodes `nvidia-smi topo` or `npu-smi info -t topo` paths to detect latency bottlenecks.
 4. **Volume Validation**: Calculates theoretical vs. observed communication traffic ($3\Phi$ vs $2\Phi$).
-5. **Error Decoding**: Translates low-level C++/OS errors (e.g., `ibv_poll_cq failed`) into actionable root causes.
+5. **Expert Heuristics**: Applies "Straggler" detection and Overlap analysis from industry experts (Bekman, Horace He).
 
 ## 📥 Installation
 
@@ -66,3 +68,8 @@ The diagnostic logic in this skill is grounded in official documentation and ind
 - **ZeRO Paper**: [Memory Optimizations Toward Training Trillion Parameter Models (Rajbhandari et al.)](https://arxiv.org/abs/1910.02054)
 - **Meta Engineering**: [Llama 3: Training at Scale (Meta AI Blog)](https://ai.meta.com/blog/meta-llama-3/)
 - **PyTorch & DeepSpeed**: [FSDP Tutorials](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html) & [ZeRO-Offload (Microsoft)](https://www.deepspeed.ai/tutorials/zero/)
+
+### Huawei Ascend & Expert Insights
+- **Huawei CANN**: [HCCL User Guide & Performance Tuning](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha2/softwaredev/hcclug/atlas_hccl_16_0001.html)
+- **Stas Bekman**: [Machine Learning Engineering - GPU Interconnect](https://github.com/stas00/ml-engineering)
+- **Horace He**: [Distributed Performance Analysis (Horace.io)](https://horace.io/)
