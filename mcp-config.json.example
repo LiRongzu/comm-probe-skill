@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "comm-probe": {
+      "command": "npx",
+      "args": ["-y", "skills", "run", "github:LiRongzu/comm-probe-skill"],
+      "env": {
+        "EXPERT_MODE": "true"
+      }
+    }
+  }
+}

@@ -33,15 +33,17 @@ When invoked, the agent executes a diagnostic protocol to generate a **[COMM-PRO
 
 ## 📥 Installation
 
-### Global (Recommended)
+### 1. Open Agent Skills (Gemini CLI, Claude Code, etc.)
+The easiest way to install is via the standard `npx skills` package manager:
 ```bash
 npx skills add github:LiRongzu/comm-probe-skill -g
 ```
 
-### Local Workspace
-```bash
-gemini skills install github:LiRongzu/comm-probe-skill --scope workspace
-```
+### 2. MCP (Model Context Protocol) for Claude
+For **Claude Code** or **Claude Desktop**, you can add this as an MCP server. Copy the configuration from `mcp-config.json.example` to your local MCP settings.
+
+### 3. Codex & GitHub Copilot
+As a pure Markdown-based skill, you can simply **link the repository** or **copy the SKILL.md** context into your workspace's `.github/copilot-instructions.md` for context-aware diagnostics.
 
 ## 📜 Principles
 - **Probe, Don't Prescribe**: Focused on providing the most accurate "Status Report" of the communication layer.
