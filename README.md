@@ -32,6 +32,7 @@ When invoked, the agent executes a diagnostic protocol to generate a **[COMM-PRO
 3. **Topology Mapping**: Decodes `nvidia-smi topo` or `npu-smi info -t topo` paths to detect latency bottlenecks.
 4. **Volume Validation**: Calculates theoretical vs. observed communication traffic ($3\Phi$ vs $2\Phi$).
 5. **Expert Heuristics**: Applies "Straggler" detection and Overlap analysis from industry experts (Bekman, Horace He).
+6. **External Discovery (Self-Correction)**: Proactively searches the internet for undocumented error codes or rare hardware issues to ensure the report reflects the latest community knowledge.
 
 ## 📥 Installation
 

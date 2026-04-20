@@ -34,6 +34,12 @@ Combine code analysis with your internal references to infer bottlenecks:
 If logs or error messages are provided:
 - Use **`references/env_error_dict.md`** to translate low-level errors into root causes (e.g., "Retry Exceeded" -> Network Congestion).
 
+### 4. Protocol E: External Discovery (Self-Correction)
+If an anomaly (e.g., undocumented Error Code, unique log string, or contradictory performance data) cannot be resolved through internal references or logical reasoning:
+- **Action**: You MUST proactively use your **Web Search** tools.
+- **Search Strategy**: Combine the specific error string with hardware models and library versions (e.g., `"NCCL INFO NET/IB : Call to ibv_reg_mr failed" A100 NCCL 2.18`).
+- **Integration**: Incorporate the latest community findings (GitHub Issues, NVIDIA Forums) into the final report.
+
 ## The Comm-Probe Expert Report (Mandatory Output)
 Your final response MUST follow this structured format:
 
