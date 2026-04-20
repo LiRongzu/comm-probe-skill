@@ -48,3 +48,21 @@ As a pure Markdown-based skill, you can simply **link the repository** or **copy
 ## 📜 Principles
 - **Probe, Don't Prescribe**: Focused on providing the most accurate "Status Report" of the communication layer.
 - **Zero Overhead**: Prefers non-invasive analysis and temporary instrumentation guides.
+
+## 📚 References & Citations
+The diagnostic logic in this skill is grounded in official documentation and industry-leading research:
+
+### NCCL & Communication Internals
+- **NVIDIA NCCL Documentation**: [Collective Operations Cost Model](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/overview.html) & [Protocols (LL, LL128, Simple)](https://github.com/NVIDIA/nccl/wiki/Protocols)
+- **NVIDIA Developer Blog**: [Optimizing Multi-GPU Communication with NCCL](https://developer.nvidia.com/blog/optimizing-multi-gpu-communication-with-nccl/)
+- **AWS HPC Blog**: [Debugging NCCL Performance on EC2](https://aws.amazon.com/blogs/hpc/debugging-nccl-performance-on-aws/)
+
+### Hardware & Topology
+- **NVIDIA Blackwell & Hopper Architecture**: [B200 NVLink 5.0 Whitepaper](https://www.nvidia.com/en-us/data-center/blackwell-architecture/) & [H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
+- **NVML API**: [Topology Queries & Affinity Best Practices](https://docs.nvidia.com/deploy/nvml-api/group__nvmlTopologyQueries.html)
+- **Networking**: [GPUDirect RDMA Best Practices (NVIDIA/Mellanox)](https://docs.nvidia.com/networking/display/winof2v230/gpudirect+rdma)
+
+### Parallelism & Scalability
+- **ZeRO Paper**: [Memory Optimizations Toward Training Trillion Parameter Models (Rajbhandari et al.)](https://arxiv.org/abs/1910.02054)
+- **Meta Engineering**: [Llama 3: Training at Scale (Meta AI Blog)](https://ai.meta.com/blog/meta-llama-3/)
+- **PyTorch & DeepSpeed**: [FSDP Tutorials](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html) & [ZeRO-Offload (Microsoft)](https://www.deepspeed.ai/tutorials/zero/)
